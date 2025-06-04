@@ -1,73 +1,88 @@
 # 📊 GitHub Enterprise Report Generator
 
-This script generates a professional Excel report summarizing GitHub organization activity, including user permissions, committers, inactive users, and stale repositories.
+This script generates a professional Excel report summarizing GitHub organization activity, including:
+
+* User permissions
+* Committers
+* Inactive users (90 and 180 days)
+* Stale repositories (not pushed to in 6+ months)
 
 ## ✅ Prerequisites
 
-* [Python installed](https://github.com/settings/tokens)
-* Admin account of the GitHub Enterprise 
+* [Python 3.11+ installed](https://www.python.org/downloads/)
+* Admin account on your GitHub Enterprise
 * A classic GitHub Personal Access Token (PAT) with the following scopes:
 
   * `read:org`
   * `repo`
   * `read:enterprise`
 
+> 💡 [Generate your PAT here](https://github.com/settings/tokens)
+
 ## 🚀 Setup Instructions
 
-Follow these steps to install dependencies and run the script:
+Choose the setup instructions that match your operating system:
 
-1. **Clone or download this repository**
+---
 
-   ```bash
-   cd your/project/GHEMUReportTemplate
-   ```
+### 🔧 Unix/macOS/Linux (Bash)
 
-2. **Create and activate a Python virtual environment**
+```bash
+# 1. Navigate to the project directory
+cd your/project/GHEMUReportTemplate
 
-   ```bash
-   python -m venv .venv
-   source .venv/bin/activate
-   ```
+# 2. Create and activate a virtual environment
+python3.11 -m venv .venv
+source .venv/bin/activate
 
-3. **Install the required dependencies**
+# 3. Install dependencies
+pip install -r requirements.txt
 
-   ```bash
-   pip install -r requirements.txt
-   ```
+# 4. Copy and update your environment config
+cp .env.example .env
+# Edit .env and set: GITHUB_TOKEN=ghp_your_token_here
 
-4. **Set up your environment variables**
+# 5. Set your GitHub Enterprise slug in report.py
+# e.g., ENTERPRISE_SLUG = "your-enterprise-slug"
 
-   * Create a `.env` file in the project root (you can copy the example):
+# 6. Run the report
+python report-api.py
+```
 
-     ```bash
-     cp .env.example .env
-     ```
-   * In the `.env` file, set your GitHub token:
+---
 
-     ```env
-     GITHUB_TOKEN=ghp_your_token_here
-     ```
+### 🖥️ Windows (PowerShell)
 
-5. **Edit your GitHub Enterprise slug**
+```powershell
+# 1. Navigate to the project directory
+cd "C:\Path\To\Your\Project\GHEMUReportTemplate"
 
-   * In `report.py`, set your enterprise slug:
+# 2. Create and activate a virtual environment
+python -m venv .venv
+.venv\Scripts\Activate.ps1
 
-     ```python
-     ENTERPRISE_SLUG = "your-enterprise-slug"
-     ```
+# 3. Install dependencies
+pip install -r requirements.txt
 
-6. **Run the report**
+# 4. Copy and update your environment config
+Copy-Item .env.example .env
+# Edit .env and set: GITHUB_TOKEN=ghp_your_token_here
 
-   ```bash
-   python report-api.py
-   ```
+# 5. Set your GitHub Enterprise slug in report.py
+# e.g., ENTERPRISE_SLUG = "your-enterprise-slug"
+
+# 6. Run the report
+python report-api.py
+```
+
+---
 
 ## 📁 Output
 
-An Excel file named `GitHub_Enterprise_Reports.xlsx` will be generated in the current directory. It includes:
+An Excel file named `GitHub_Enterprise_Reports.xlsx` will be generated in the project directory. It includes:
 
-* Summary sheet
-* User permission levels and chart
-* Committer stats and chart
-* Inactive user reports (90d, 180d)
-* Stale repo count by organization
+* ✅ Summary sheet
+* ✅ User permission levels with a stacked bar chart
+* ✅ Committer stats with visual comparison
+* ✅ Inactive user reports (90 and 180 days)
+* ✅ Stale repository count per org
